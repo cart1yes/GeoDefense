@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class Gui : MonoBehaviour
 {
+    [Header("Main")]
     public GameObject ShapesFolder;
     public GameObject TowersFolder;
     public bool gameOver = false;
@@ -73,7 +74,7 @@ public class Gui : MonoBehaviour
     void Start()
     {
         //TokenInt = 99999999;
-        LifeInt = 250;
+        LifeInt = 150;
         Time.timeScale = 1f;
         TokenInt = 400;
         HasTower = false;
@@ -170,10 +171,9 @@ public class Gui : MonoBehaviour
 
         if (LifeInt <= 0)
         {
-            
-            Destroy(ShapesFolder);
             Lives.text = "Lives: 0";
             gameOver = true;
+            
             GameOverBG.gameObject.SetActive(true);
         }
 
@@ -328,7 +328,7 @@ public class Gui : MonoBehaviour
                 {
                     GameObject.Find("WaveManager").GetComponent<Gui>().RangeVal = "3";
                     GameObject.Find("WaveManager").GetComponent<Gui>().FirerateVal = "0.85";
-                    GameObject.Find("WaveManager").GetComponent<Gui>().DamageVal = "2";
+                    GameObject.Find("WaveManager").GetComponent<Gui>().DamageVal = "4";
                     DescVal = "Shoots Multiple Bullets At Once";
 
                     CurrentTower.GetComponent<Tower>().Range = 3f;
@@ -396,7 +396,7 @@ public class Gui : MonoBehaviour
                     PriceVal = 1400;
                     GameObject.Find("WaveManager").GetComponent<Gui>().RangeVal = "3";
                     GameObject.Find("WaveManager").GetComponent<Gui>().FirerateVal = "0.9";
-                    GameObject.Find("WaveManager").GetComponent<Gui>().DamageVal = "1";
+                    GameObject.Find("WaveManager").GetComponent<Gui>().DamageVal = "2";
                     DescVal = "Fires Multiple Bullets At Once";
 
                     CurrentTower.GetComponent<Tower>().Range = 3f;

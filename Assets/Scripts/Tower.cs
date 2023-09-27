@@ -28,7 +28,6 @@ public class Tower : MonoBehaviour
     [Header("Tower Debug")]
     public bool MultiReady;
 
-
     private void Awake()
     {
         if (gameObject.GetComponent<Tower>().Name == "GunnerClone" || gameObject.GetComponent<Tower>().Name == "SplitClone" || gameObject.GetComponent<Tower>().Name == "RapidFireClone" || gameObject.GetComponent<Tower>().Name == "LaserClone" || gameObject.GetComponent<Tower>().Name == "SniperClone" || gameObject.GetComponent<Tower>().Name == "ZapperClone")
@@ -128,7 +127,7 @@ public class Tower : MonoBehaviour
                             GameObject.Find("WaveManager").GetComponent<Gui>().PriceVal = 0;
                             GameObject.Find("WaveManager").GetComponent<Gui>().RangeVal = "3";
                             GameObject.Find("WaveManager").GetComponent<Gui>().FirerateVal = "0.85";
-                            GameObject.Find("WaveManager").GetComponent<Gui>().DamageVal = "2";
+                            GameObject.Find("WaveManager").GetComponent<Gui>().DamageVal = "4";
                             GameObject.Find("WaveManager").GetComponent<Gui>().DescVal = "Fires Multiple Bullets At Once";
                         }
                         else if (hit2D.collider.gameObject.GetComponent<Tower>().UpgradeVal == 1)
@@ -136,7 +135,7 @@ public class Tower : MonoBehaviour
                             GameObject.Find("WaveManager").GetComponent<Gui>().PriceVal = 1400;
                             GameObject.Find("WaveManager").GetComponent<Gui>().RangeVal = "3";
                             GameObject.Find("WaveManager").GetComponent<Gui>().FirerateVal = "0.9";
-                            GameObject.Find("WaveManager").GetComponent<Gui>().DamageVal = "1";
+                            GameObject.Find("WaveManager").GetComponent<Gui>().DamageVal = "2";
                             GameObject.Find("WaveManager").GetComponent<Gui>().DescVal = "Fires Multiple Bullets At Once";
                         }
                         else if (hit2D.collider.gameObject.GetComponent<Tower>().UpgradeVal == 0)
@@ -218,7 +217,7 @@ public class Tower : MonoBehaviour
                             GameObject.Find("WaveManager").GetComponent<Gui>().PriceVal = 0;
                             GameObject.Find("WaveManager").GetComponent<Gui>().RangeVal = "20";
                             GameObject.Find("WaveManager").GetComponent<Gui>().FirerateVal = "2";
-                            GameObject.Find("WaveManager").GetComponent<Gui>().DamageVal = "40";
+                            GameObject.Find("WaveManager").GetComponent<Gui>().DamageVal = "75";
                             GameObject.Find("WaveManager").GetComponent<Gui>().DescVal = "Fires Strong Bullets At Slow Speeds";
                         }
                         else if (hit2D.collider.gameObject.GetComponent<Tower>().UpgradeVal == 1)
@@ -226,7 +225,7 @@ public class Tower : MonoBehaviour
                             GameObject.Find("WaveManager").GetComponent<Gui>().PriceVal = 3300;
                             GameObject.Find("WaveManager").GetComponent<Gui>().RangeVal = "20";
                             GameObject.Find("WaveManager").GetComponent<Gui>().FirerateVal = "2.5";
-                            GameObject.Find("WaveManager").GetComponent<Gui>().DamageVal = "20";
+                            GameObject.Find("WaveManager").GetComponent<Gui>().DamageVal = "40";
                             GameObject.Find("WaveManager").GetComponent<Gui>().DescVal = "Fires Strong Bullets At Slow Speeds";
                         }
                         else if (hit2D.collider.gameObject.GetComponent<Tower>().UpgradeVal == 0)
@@ -234,7 +233,7 @@ public class Tower : MonoBehaviour
                             GameObject.Find("WaveManager").GetComponent<Gui>().PriceVal = 1750;
                             GameObject.Find("WaveManager").GetComponent<Gui>().RangeVal = "20";
                             GameObject.Find("WaveManager").GetComponent<Gui>().FirerateVal = "3";
-                            GameObject.Find("WaveManager").GetComponent<Gui>().DamageVal = "10";
+                            GameObject.Find("WaveManager").GetComponent<Gui>().DamageVal = "25";
                             GameObject.Find("WaveManager").GetComponent<Gui>().DescVal = "Fires Strong Bullets At Slow Speeds";
                         }
                         //GameObject.Find("WaveManager").GetComponent<Gui>().CurrentTower = hit2D.collider.gameObject;
@@ -248,7 +247,7 @@ public class Tower : MonoBehaviour
                             GameObject.Find("WaveManager").GetComponent<Gui>().PriceVal = 0;
                             GameObject.Find("WaveManager").GetComponent<Gui>().RangeVal = "6";
                             GameObject.Find("WaveManager").GetComponent<Gui>().FirerateVal = "1.5";
-                            GameObject.Find("WaveManager").GetComponent<Gui>().DamageVal = "0";
+                            GameObject.Find("WaveManager").GetComponent<Gui>().DamageVal = "1";
                             GameObject.Find("WaveManager").GetComponent<Gui>().DescVal = "Stuns Shapes For A Period Of Time";
                         }
                         else if (hit2D.collider.gameObject.GetComponent<Tower>().UpgradeVal == 1)
@@ -264,7 +263,7 @@ public class Tower : MonoBehaviour
                             GameObject.Find("WaveManager").GetComponent<Gui>().PriceVal = 700;
                             GameObject.Find("WaveManager").GetComponent<Gui>().RangeVal = "5";
                             GameObject.Find("WaveManager").GetComponent<Gui>().FirerateVal = "2";
-                            GameObject.Find("WaveManager").GetComponent<Gui>().DamageVal = "1";
+                            GameObject.Find("WaveManager").GetComponent<Gui>().DamageVal = "0";
                             GameObject.Find("WaveManager").GetComponent<Gui>().DescVal = "Stuns Shapes For A Period Of Time";
                         }
                         GameObject.Find("WaveManager").GetComponent<Gui>().UpgradeMenu.gameObject.SetActive(true);
@@ -285,9 +284,12 @@ public class Tower : MonoBehaviour
 
     public void ReBullet()
     {
-        StopAllCoroutines();
-        //print("Reset");
-        StartCoroutine(Attack());
+        if (GameObject.Find("WaveManager").GetComponent<WaveManager>().DoneGame == false)
+        {
+            StopAllCoroutines();
+            //print("Reset");
+            StartCoroutine(Attack());
+        }
     }
 
     IEnumerator Attack()
@@ -324,6 +326,9 @@ public class Tower : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(FireRate);
-        StartCoroutine(Attack());
+        if (GameObject.Find("WaveManager").GetComponent<WaveManager>().DoneGame == false)
+        {
+            StartCoroutine(Attack());
+        }
     }
 }
